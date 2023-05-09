@@ -12,3 +12,31 @@ struct library
     char status_pinjam[100]; // status
     int tahun_terbit;        // tahun terbit buku
 };
+
+// fungsi cari buku berdasarkan judul
+void cariBuku(struct library buku[], int n, char cari[])
+{
+    int i, count = 0;
+
+    for (i = 0; i < n; i++)
+    {
+        if (strcmp(buku[i].judul, cari) == 0)
+        {
+            printf(" \nNO: %d ", i + 1);
+            printf(" \nJudul Buku: %s ", buku[i].judul);
+            printf(" \nPenulis: %s ", buku[i].penulis);
+            printf(" \nPenerbit: %s ", buku[i].penerbit);
+            printf(" \nTahun terbit: %d\n\n ", buku[i].tahun_terbit);
+            count++;
+        }
+    }
+
+    if (count == 0)
+    {
+        printf("Buku dengan judul '%s' tidak ditemukan.\n", cari);
+    }
+    else
+    {
+        printf("Ditemukan %d buku dengan judul '%s'.\n", count, cari);
+    }
+}
