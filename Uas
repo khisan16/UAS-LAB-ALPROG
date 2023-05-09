@@ -124,3 +124,173 @@ void cariTahunBuku(struct library buku[], int n, int cari)
         printf("Ditemukan %d buku dengan tahun terbit '%d'.\n", count, cari);
     }
 }
+
+// fungsi untuk menghitung isi array
+int arr_length(int arr[])
+{
+    int i;
+    int count = 0;
+    for (i = 0; arr[i] != '\0'; i++)
+    {
+        count++;
+    }
+    return count;
+}
+
+int cek(int arr[], int n, int jawab)
+{
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        if (arr[i] == jawab)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void pinjamBuku(struct library buku[], int n, char cari[])
+{
+    int i, count = 0;
+    int finded[100];
+
+    char jawab[5];
+
+    for (i = 0; i < n; i++)
+    {
+        if (strcmp(buku[i].judul, cari) == 0)
+        {
+            printf(" \nNO: %d ", i + 1);
+            printf(" \nJudul Buku: %s ", buku[i].judul);
+            printf(" \nPenulis: %s ", buku[i].penulis);
+            printf(" \nPenerbit: %s ", buku[i].penerbit);
+            printf(" \nStatus peminjaman: %s ", buku[i].status_pinjam);
+            printf(" \nTahun terbit: %d\n\n ", buku[i].tahun_terbit);
+            finded[count] = i;
+            count++;
+        }
+    }
+
+    if (count == 0)
+    {
+        printf("Buku dengan judul '%s' tidak ditemukan.\n", cari);
+    }
+    else if (count == 1)
+    {
+        if ((strcmp(buku[finded[0]].status_pinjam, "nonactive")) == 0)
+        {
+            do
+            {
+                printf("Apakah Anda akan meminjam buku ini?(ya/tidak)");
+                scanf(" %[^\n]s", jawab);
+            } while ((strcmp(jawab, "ya")) != 0);
+            strcpy(buku[finded[0]].status_pinjam, "active");
+        }
+        else
+        {
+            printf("Buku sedang dipinjam");
+        }
+    }
+    else
+    {
+        int jawab1;
+        printf("Ditemukan %d buku dengan judul '%s'.\n", count, cari);
+        printf("Masukkan nomor buku yang ingin anda pinjam\n");
+        scanf(" %d", &jawab1);
+        int validasi = cek(finded, count, jawab1 - 1);
+        if (validasi < 0)
+        {
+            printf("anda memasukkan nomor buku yang salah %d\n", validasi);
+        }
+        else
+        {
+            if ((strcmp(buku[validasi].status_pinjam, "nonactive")) == 0)
+            {
+                do
+                {
+                    printf("Apakah Anda akan meminjam buku ini?(ya/tidak)");
+                    scanf(" %[^\n]s", jawab);
+                } while ((strcmp(jawab, "ya")) != 0);
+                strcpy(buku[validasi].status_pinjam, "active");
+            }
+            else
+            {
+                printf("Buku sedang dipinjam");
+            }
+        }
+    }
+}
+
+
+void kembaliBuku(struct library buku[], int n, char cari[]){
+    int i, count = 0;
+    int finded[100];
+
+    char jawab[5];
+
+    for (i = 0; i < n; i++)
+    {
+        if (strcmp(buku[i].judul, cari) == 0)
+        {
+            printf(" \nNO: %d ", i + 1);
+            printf(" \nJudul Buku: %s ", buku[i].judul);
+            printf(" \nPenulis: %s ", buku[i].penulis);
+            printf(" \nPenerbit: %s ", buku[i].penerbit);
+            printf(" \nStatus peminjaman: %s ", buku[i].status_pinjam);
+            printf(" \nTahun terbit: %d\n\n ", buku[i].tahun_terbit);
+            finded[count] = i;
+            count++;
+        }
+    }
+
+    if (count == 0)
+    {
+        printf("Buku dengan judul '%s' tidak ditemukan.\n", cari);
+    }
+    else if (count == 1)
+    {
+        if ((strcmp(buku[finded[0]].status_pinjam, "active")) == 0)
+        {
+            do
+            {
+                printf("Apakah Anda akan mengembalikan buku ini?(ya/tidak)");
+                scanf(" %[^\n]s", jawab);
+            } while ((strcmp(jawab, "ya")) != 0);
+            strcpy(buku[finded[0]].status_pinjam, "nonactive");
+        }
+        else
+        {
+            printf("Buku tidak sedang dipinjam");
+        }
+    }
+    else
+    {
+        int jawab1;
+        printf("Ditemukan %d buku dengan judul '%s'.\n", count, cari);
+        printf("Masukkan nomor buku yang ingin anda kembalikan\n");
+        scanf(" %d", &jawab1);
+        int validasi = cek(finded, count, jawab1 - 1);
+        if (validasi < 0)
+        {
+            printf("anda memasukkan nomor buku yang salah %d\n", validasi);
+        }
+        else
+        {
+            if ((strcmp(buku[validasi].status_pinjam, "active")) == 0)
+            {
+                do
+                {
+                    printf("Apakah Anda akan mengembalikan buku ini?(ya/tidak)");
+                    scanf(" %[^\n]s", jawab);
+                } while ((strcmp(jawab, "ya")) != 0);
+                strcpy(buku[validasi].status_pinjam, "nonactive");
+            }
+            else
+            {
+                printf("Buku tidak sedang dipinjam");
+            }
+        }
+    }
+}
+
