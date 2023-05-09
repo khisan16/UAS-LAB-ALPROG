@@ -1,0 +1,14 @@
+// to import standard libraries
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// menggunakan struct untuk menyimpan informasi tiap buku
+struct library
+{
+    char judul[100];         // nama buku
+    char penulis[100];       // penulis
+    char penerbit[100];      // penerbit
+    char status_pinjam[100]; // status
+    int tahun_terbit;        // tahun terbit buku
+};
