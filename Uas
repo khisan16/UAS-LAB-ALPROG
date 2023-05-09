@@ -294,3 +294,141 @@ void kembaliBuku(struct library buku[], int n, char cari[]){
     }
 }
 
+// main function
+int main()
+{
+
+    struct library lib[100];
+    int i, j, k, count;
+    i = 0;
+    j = 0;
+    count = 0;
+
+    // block 3.1
+
+    while (j != 9)
+    {
+        printf(" \n\n  1. Tambah Buku\n ");
+        printf(" 2. Detail Buku\n ");
+        printf(" 3. Jumlah Buku tersedia\n ");
+        printf(" 4. Cari Buku\n ");
+        printf(" 5. Pinjam Buku\n ");
+        printf(" 6. Mengembalikan Buku\n ");
+        printf(" 7. Exit\n\n");
+        printf(" Enter the number: ");
+        scanf(" %d", &j);
+
+        // block 3.1.1
+
+        switch (j)
+        {
+        // in order to add the book details
+        case 1:
+            printf(" \n---+ Tambah Buku +---");
+            printf(" \nMasukkan judul buku: ");
+            scanf(" %[^\n]s", lib[i].judul);
+            printf(" \nMasukkan penulis buku: ");
+            scanf(" %[^\n]s", lib[i].penulis);
+            printf(" \nMasukkan penerbit buku: ");
+            scanf(" %[^\n]s", lib[i].penerbit);
+            printf(" \nMasukkan tahun terbit: ");
+            scanf(" %d", &lib[i].tahun_terbit);
+            strcpy(lib[i].status_pinjam, "nonactive");
+            count += 1;
+            i += 1;
+            break;
+
+        case 2:
+            // if there are no books registered previously
+            if (count == 0)
+            {
+                printf(" \nTidak ada buku terdaftar!!\n\n ");
+            }
+            else
+            {
+                printf(" \nDaftar buku tersedia: ");
+                for (i = 0; i < count; i++)
+                {
+                    printf(" \nNO: %d ", i + 1);
+                    printf(" \nJudul Buku: %s", lib[i].judul);
+                    printf(" \nPenulis: %s ", lib[i].penulis);
+                    printf(" \nPenerbit: %s ", lib[i].penerbit);
+                    printf(" \nStatus peminjaman: %s ", lib[i].status_pinjam);
+                    printf(" \nTahun terbit: %d\n\n ", lib[i].tahun_terbit);
+                }
+            }
+            break;
+
+        case 3:
+            // to view the total number of books
+            printf(" \nJumlah buku yang tersedia diperpustakaan: %d\n\n ", count);
+            break;
+
+        case 4:
+            // to view the total number of books
+            printf(" \n\nPilih pencarian berdasarkan: \n ");
+            printf(" 1. Judul Buku\n ");
+            printf(" 2. Penulis Buku\n ");
+            printf(" 3. Penerbit Buku\n ");
+            printf(" 4. Tahun Terbit Buku\n ");
+            printf(" 5. kembali\n\n");
+            printf(" Enter the number: ");
+            scanf(" %d", &k);
+            char find[100];
+            switch (k)
+            {
+            case 1:
+
+                printf(" \nMasukkan judul buku yang dicari: ");
+                scanf(" %[^\n]s", find);
+                cariBuku(lib, count, find);
+                break;
+            case 2:
+                printf(" \nMasukkan nama penulis buku yang dicari: ");
+                scanf(" %[^\n]s", find);
+                cariPenulisBuku(lib, count, find);
+                break;
+            case 3:
+                printf(" \nMasukkan nama penerbit buku yang dicari: ");
+                scanf(" %[^\n]s", find);
+                cariPenerbitBuku(lib, count, find);
+                break;
+                break;
+            case 4:;
+                int thn;
+                printf(" \nMasukkan tahun penerbit buku yang dicari: ");
+                scanf(" %d", &thn);
+                cariTahunBuku(lib, count, thn);
+                break;
+            case 5:
+                break;
+
+            default:
+                break;
+            }
+            break;
+
+        case 5:;
+            char pinjam[100];
+            printf(" \nMasukkan judul buku yang ingin dipinjam: ");
+            scanf(" %[^\n]s", pinjam);
+            pinjamBuku(lib, count, pinjam);
+            break;
+
+        case 6:;
+            char kembali[100];
+            printf(" \nMasukkan judul buku yang ingin dikembalikan: ");
+            scanf(" %[^\n]s", kembali);
+            kembaliBuku(lib, count, kembali);
+            break;
+
+        case 7:
+            // to exit from the program
+            exit(0);
+
+        default:
+            // if any number other than 1, 2, 3, 4 is entered
+            printf(" \nInvalid number entered\n\n ");
+        }
+    }
+}
